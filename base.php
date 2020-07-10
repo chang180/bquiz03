@@ -64,7 +64,10 @@ public function save($arg){
 }
 
 function to($url){
-    header("location :$url");
+    header("location:$url");
 }
+
+$Poster=new DB('poster');
+
 
 ?>
