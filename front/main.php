@@ -54,6 +54,14 @@ $rows = $Poster->all(['sh' => 1], " ORDER BY `rank`");
     .po img {
         width: 100%;
     }
+
+    .mb {
+        width: 45%;
+        height: 160px;
+        display: inline-block;
+        margin: 3px;
+
+    }
 </style>
 <!-- 預告片區 -->
 <div class="half" style="vertical-align:top;">
@@ -191,11 +199,44 @@ $rows = $Poster->all(['sh' => 1], " ORDER BY `rank`");
 <div class="half">
     <h1>院線片清單</h1>
     <div class="rb tab" style="width:95%;">
-        <table>
-            <tbody>
-                <tr> </tr>
-            </tbody>
-        </table>
-        <div class="ct"> </div>
+        <?php
+        $today = date("Y-m-d");
+        $ondate = date("Y-m-d", strtotime("-2 days"));
+        $div = 4;
+        $now = $_GET['p'] ?? 1;
+        $start = ($now - 1) * $div;
+        $rows = $Movie->all(['sh' => 1], " && ondate >= '$ondate' && ondate <= '$today' ORDER BY rank limit $start,$div");
+        $total = $Movie->count(['sh' => 1], " && ondate >= '$ondate' && ondate <= '$today' ");
+        $pages = ceil($total / $div);
+
+        foreach ($rows as $row) {
+        ?>
+            <div class="mb">
+                <table>
+                    <tr>
+                        <td rowspan="3"><img src="./img/<?= $row['poster']; ?>" style="width:80px;height:100px"></td>
+                        <td><?= $row['name']; ?></td>
+                    </tr>
+                    <tr>
+                        <td><img src="./icon/<?= $row['level']; ?>.png" style="width:15px"><?= $level[$row['level']]; ?></td>
+                    </tr>
+                    <tr>
+                        <td><?= $row['ondate']; ?></td>
+                    </tr>
+                </table>
+
+                <div class="ct">
+                    <button onclick="location.href='?do=intro&id=<?=$row['id'];?>'">劇情簡介</button><button onclick="location.href='?do=order&id=<?=$row['id'];?>'">線上訂票</button>
+                </div>
+            </div>
+        <?php } ?>
+        <div class="ct">
+            <?php
+            for ($i = 1; $i <= $pages; $i++) {
+                $font = ($i == $now) ? "30px" : "20px";
+                echo "<a href='?p=$i' style='font-size:$font;text-decoration:none'>$i</a>";
+            }
+            ?>
+        </div>
     </div>
 </div>

@@ -6,18 +6,18 @@
         background: #eee;
     }
 
-    .movie-item{
-    width:100%;
-    background:white;
-    margin:2px 0;
-}
+    .movie-item {
+        width: 100%;
+        background: white;
+        margin: 2px 0;
+    }
+
     .movie-item>div {
         display: inline-block;
     }
 
     .movie-item>div:nth-child(1),
     .movie-item>div:nth-child(2) {
-        verticle-align:middle;
         width: 10%;
     }
 
@@ -34,22 +34,22 @@
 <button>新增電影</button>
 <hr>
 <div class="list">
-<?php
-$rows=$Movie->all([]," ORDER BY rank");
-foreach($rows as $k=>$row){
-    
+    <?php
+    $rows = $Movie->all([], " ORDER BY rank");
+    foreach ($rows as $k => $row) {
+
     ?>
-<div class="movie-item">
-    <div><img src="./img/<?=$row['poster'];?>" style="width:80px;height:100px"></div>
-    <div>分級：<img src="icon/<?=$row['level'];?>.png"></div>
-    <div>
-        <span>片名：<?=$row['name'];?></span>
-        <span>片長：<?=$row['length'];?></span>
-        <span>上映時間：<?=$row['ondate'];?></span>
-        <div>功能按鈕</div>
-        <div>劇情簡介：<?=$row['intro'];?></div>
-    </div>
-</div>
-<?php } ?>
+        <div class="movie-item">
+            <div><img src="./img/<?= $row['poster']; ?>" style="width:80px;height:100px"></div>
+            <div>分級：<img src="icon/<?= $row['level']; ?>.png"></div>
+            <div>
+                <span>片名：<?= $row['name']; ?></span>
+                <span>片長：<?= $row['length']; ?></span>
+                <span>上映時間：<?= $row['ondate']; ?></span>
+                <div>功能按鈕</div>
+                <div>劇情簡介：<?= $row['intro']; ?></div>
+            </div>
+        </div>
+    <?php } ?>
 
 </div>

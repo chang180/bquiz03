@@ -70,5 +70,12 @@ function to($url){
 $Poster=new DB('poster');
 $Movie=new DB('movie');
 
+$level=[
+1=>'普遍級',
+2=>'輔導級',
+3=>'保護級',
+4=>'限制級'
+];
+
 
 ?>
