@@ -154,6 +154,35 @@ $rows = $Poster->all(['sh' => 1], " ORDER BY `rank`");
                     $(next).slideDown(1000);
                 });
                 break;
+            case 4: //縮放 使用 animate自己寫的時候，需要把各種前後關係都考慮到，不像直接使用既有函式這麼直覺
+                $(dom).animate({
+                    width: 0,
+                    height: 0,
+                    left: 100,
+                    top: 130
+                }, function() {
+                    $(next).css({
+                        width: 0,
+                        height: 0,
+                        left: 100,
+                        top: 130
+                    });
+                    $(next).show();
+                    $(next).animate({
+                        width: 200,
+                        height: 260,
+                        left: 0,
+                        top: 0
+                    });
+                    $(dom).hide();
+                    $(dom).css({
+                        width: 200,
+                        height: 260,
+                        left: 0,
+                        top: 0
+                    });
+                })
+                break;
         }
     }
 </script>
