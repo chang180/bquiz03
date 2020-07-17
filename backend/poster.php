@@ -113,7 +113,8 @@
     $("button").on("click", function() {
         let id = $(this).data("rank").split("-");
         $.post("api/rank.php", {
-            id
+            id,
+            "table":"poster"
         }, function() {
             location = location;
         })
