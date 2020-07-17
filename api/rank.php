@@ -1,12 +1,13 @@
 <?php
 include_once "../base.php";
-
-$row1=$Poster->find($_POST['id'][0]);
-$row2=$Poster->find($_POST['id'][1]);
+$table=$_POST['table'];
+$db=new DB($table);
+$row1=$db->find($_POST['id'][0]);
+$row2=$db->find($_POST['id'][1]);
 
 list($row1['rank'],$row2['rank']) = array($row2['rank'],$row1['rank']);
 
-$Poster->save($row1);
-$Poster->save($row2);
+$db->save($row1);
+$db->save($row2);
 
 ?>

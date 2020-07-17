@@ -45,7 +45,7 @@
 
                 $rows = $Poster->all([], " ORDER BY `rank` ");
 
-                foreach ($rows as $k=>$row) {
+                foreach ($rows as $k => $row) {
                     $isChecked = ($row['sh'] == 1) ? "checked" : "";
 
                     // 以下排序做法，完全可以使用直接讓用戶輸入排序值就好，不要浪費太多時間理解它
@@ -61,8 +61,8 @@
 下一筆$k+1 =  是否最後一筆  $k == count($rows)-1
                             -->
                             <!-- button雖然自帶submit，但設定type="button"後即可取消submit效果 -->
-                            <button type="button" data-rank="<?= $row['id'] . "-".$prev; ?>">往上</button>
-                            <button type="button" data-rank="<?= $row['id'] . "-".$next; ?>">往下</button>
+                            <button type="button" data-rank="<?= $row['id'] . "-" . $prev; ?>">往上</button>
+                            <button type="button" data-rank="<?= $row['id'] . "-" . $next; ?>">往下</button>
                         </div>
                         <div>
                             <input type="checkbox" name="sh[]" value="<?= $row['id']; ?>" <?= $isChecked; ?>>顯示
@@ -110,11 +110,12 @@
 </div>
 
 <script>
-$("button").on("click",function(){
-    let id=$(this).data("rank").split("-");
-    $.post("api/rank.php",{id},function(){
-        location=location;
+    $("button").on("click", function() {
+        let id = $(this).data("rank").split("-");
+        $.post("api/rank.php", {
+            id
+        }, function() {
+            location = location;
+        })
     })
-})
-
 </script>
