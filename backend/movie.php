@@ -56,7 +56,7 @@
                     id,
                     "table": "movie"
                 }, function() {
-                    // 後台api處理完畢後重新載入一次頁面
+                    // 後台api處理完畢後重新載入一次頁面，ajax化之後就只需要再執行一次函式，不再需要reload整個頁面
                     reloadlist();;
                 })
             })

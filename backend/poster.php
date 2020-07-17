@@ -57,8 +57,8 @@
                         <div><input type="text" name="name[]" value="<?= $row['name']; ?>"></div>
                         <div>
                             <!--
-上一筆$k-1 +  是否第一筆 $k == 0
-下一筆$k+1 =  是否最後一筆  $k == count($rows)-1
+                        上一筆$k-1 +  是否第一筆 $k == 0
+                        下一筆$k+1 =  是否最後一筆  $k == count($rows)-1
                             -->
                             <!-- button雖然自帶submit，但設定type="button"後即可取消submit效果 -->
                             <button type="button" data-rank="<?= $row['id'] . "-" . $prev; ?>">往上</button>
@@ -114,7 +114,7 @@
         let id = $(this).data("rank").split("-");
         $.post("api/rank.php", {
             id,
-            "table":"poster"
+            "table": "poster"
         }, function() {
             location = location;
         })
