@@ -15,9 +15,9 @@
                         foreach ($rows as $row) {
                             if (!empty($_GET['id'])) {
                                 $selected = ($_GET['id'] == $row['id']) ? "selected" : "";
-                                echo "<option value='" . $row['id'] . "' data-name=".$row['name']." $selected>" . $row['name'] . "</option>";
+                                echo "<option value='" . $row['id'] . "' data-name=" . $row['name'] . " $selected>" . $row['name'] . "</option>";
                             } else {
-                                echo "<option value='" . $row['id'] . "' data-name=".$row['name'].">" . $row['name'] . "</option>";
+                                echo "<option value='" . $row['id'] . "' data-name=" . $row['name'] . ">" . $row['name'] . "</option>";
                             }
                         }
                         ?>
@@ -60,24 +60,30 @@
         background: blue;
     } */
 
-    .null{
-        background:url("icon/03D02.png");
-        background-repeat:no-repeat;
-        background-position: center;;
+    .null {
+        background: url("icon/03D02.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        ;
     }
-    .booked{
-        background:url("icon/03D03.png");
-        background-repeat:no-repeat;
-        background-position: center;;
+
+    .booked {
+        background: url("icon/03D03.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        ;
     }
-    .chkbox{
-        position:absolute;bottom:5px;right:5px;
+
+    .chkbox {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
     }
 </style>
 
 <div class="booking-form" style="display:none">
     <div class="room">
-       
+
     </div>
     <div class="info-block">
         <div class="info">
@@ -86,7 +92,7 @@
             <p id="infoSession">您已經勾選<span id='ticket'></span>張票：最多可以購買四張票</p>
         </div>
         <button onclick="prev()">上一步</button>
-        <button onclick="order()">訂購</button>
+        <button id="send">訂購</button>
     </div>
 </div>
 
@@ -100,9 +106,9 @@
         getSession();
     })
 
-  
 
-    
+
+
 
     function getDuration() {
         let id = $("#movie").val();
@@ -128,23 +134,55 @@
     function booking() {
         // $(".order-form").hide();
         // $(".booking-form").show();
-        let movie=$("#movie").val();
-        let movieName=$("#movie option:selected").data("name");
-        let date=$("#date").val();
-        let session=$("#session").val();
-        let sessionName=$("#session option:selected").data("session");
+        let movie = $("#movie").val();
+        let movieName = $("#movie option:selected").data("name");
+        let date = $("#date").val();
+        let session = $("#session").val();
+        let sessionName = $("#session option:selected").data("session");
         $("#movie-name").html(movieName);
         $("#movie-date").html(date);
         $("#movie-session").html(sessionName);
-$.get("api/get_seats.php",function(seats){
-    $(".room").html(seats);
+        $.get("api/get_seats.php", function(seats) {
+            $(".room").html(seats);
 
-    let ticket=0;
-    $(".chkbox").on("change",function(){
-        ticket++;
-        $("#ticket").html(ticket);
-    })
-})
+            let ticket = 0;
+            let seat = new Array();
+            $(".chkbox").on("change", function() {
+
+                let chk = $(this).prop("checked");
+                if (chk == true) {
+                    ticket++;
+                    if (ticket > 4) {
+                        // alert("最多只能選四張票");
+                        ticket--;
+                        $(this).prop("checked", false);
+                    } else {
+                        seat.push($(this).val())
+                    }
+                } else {
+                    ticket--;
+                    // console.log($(this).val());
+                    // seat.splice(seat.indexOf($(this).val()),1); //splice要使用該值的index，有點麻煩
+                    seat = seat.filter(e => e !== $(this).val());
+                }
+                // console.log(seat);
+
+                $("#ticket").html(ticket);
+
+                
+            })
+            $("#send").on("click", function() {
+                    $.post("api/order.php", {
+                        movie,
+                        date,
+                        session,
+                        seat
+                    }, function(ordno) {
+                        // console.log(ordno);
+                        location.href = "?do=result&ord=" + ordno;
+                    })
+                })
+        })
 
         $(".order-form,.booking-form").toggle();
 
