@@ -16,10 +16,11 @@ $movie_id = $_GET['id'];
 // $movie=$db->find($movie_id);
 
 $today = strtotime(date("Y-m-d"));
-$ondate = strtotime($movie['ondate']);
+// $ondate = strtotime($movie['ondate']);
 
 if (strtotime($movie_date) == $today) {
-    $now = floor((date("G") - 12) / 2);
+    $now = ((floor((date("G") - 12) / 2)));
+    $now=($now>0)?$now:0;
     for ($i = ($now + 1); $i <= 5; $i++) {
         echo "<option value='$i'>" . $sess[$i] . "</option>";
     }
