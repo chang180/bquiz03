@@ -3,13 +3,17 @@
 $orders = $Ord->all();
 ?>
 <form action="api/fastdel.php" method="post">
-    <!-- 快速刪除： 回家再想 0.0 -->
-    <select name="movie">
-        <option value="1">普遍級</option>
-        <option value="2">輔導級</option>
-        <option value="3">保護級</option>
-        <option value="4">限制級</option>
-    </select>
+<input type="radio" name="mode" value="1">依日期
+<input type="text" name="date">
+<input type="radio" name="mode" value="2">依電影名稱
+<select name="movie">
+<?php
+$rows=$Ord->all([]," GROUP BY movie");
+foreach ($rows as $row){
+echo "<option>".$row['movie']."</option>";
+}
+?>
+</select>
     <input type="submit" value="刪除">
 </form>
 
