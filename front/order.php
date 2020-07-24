@@ -142,7 +142,7 @@
         $("#movie-name").html(movieName);
         $("#movie-date").html(date);
         $("#movie-session").html(sessionName);
-        $.get("api/get_seats.php", function(seats) {
+        $.get("api/get_seats.php",{movieName,date,sessionName}, function(seats) {
             $(".room").html(seats);
 
             let ticket = 0;

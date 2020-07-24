@@ -22,11 +22,16 @@ $ord = $Ord->find(['no' => $sno]);
         <td><?= $ord['session'] ?></td>
     </tr>
     <tr>
-        <td >
-            座位：
-        </td>
-        <td>
-            <?=$ord['seat'];?>
+        <td colspan="2">
+            座位：<br>
+            <?php
+        $seat = unserialize($ord['seat']);
+        // var_dump($seat);
+        foreach ($seat as $s) {
+            echo (floor($s/5)+1)."排",($s%5+1) ,"號","<br>";
+        }
+        echo "共". count($seat)."張電影票";
+        ?>
         </td>
     </tr>
     <tr>
