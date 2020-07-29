@@ -1,11 +1,12 @@
 <h3 class="ct">訂單管理</h3>
 <?php
-$orders = $Ord->all();
+$orders = $Ord->all([]," ORDER BY no DESC");
 ?>
-<form action="api/fastdel.php" method="post">
+<form action="api/fastdel.php" method="post" onsubmit="return confirm('殺很大你確定？')">
+快速刪除：
 <input type="radio" name="mode" value="1">依日期
 <input type="text" name="date">
-<input type="radio" name="mode" value="2">依電影名稱
+<input type="radio" name="mode" value="2">依電影
 <select name="movie">
 <?php
 $rows=$Ord->all([]," GROUP BY movie");
@@ -44,7 +45,7 @@ echo "<option>".$row['movie']."</option>";
                     $seat = unserialize($o['seat']);
                     // var_dump($seat);
                     foreach ($seat as $s) {
-                        echo (floor($s / 5) + 1) . "排", ($s % 5 + 1), "號", "<br>";
+                        echo (floor($s / 5) + 1) , "排", ($s % 5 + 1), "號", "<br>";
                     }
                     ?></td>
                 <input type="hidden" name="id" value="<?= $o['id']; ?>">
