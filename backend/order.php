@@ -18,9 +18,10 @@ echo "<option>".$row['movie']."</option>";
     <input type="submit" value="刪除">
 </form>
 
+<style>
+</style>
 
-
-<table>
+<table rules=rows>
     <tr>
         <td>訂單編號</td>
         <td>電影名稱</td>
@@ -33,7 +34,7 @@ echo "<option>".$row['movie']."</option>";
     <?php
     foreach ($orders as $o) {
     ?>
-        <form action="api/del_order.php" method="post">
+        <form action="api/del_order.php" method="post" onsubmit="return confirm('確定？')">
             <tr>
                 <td><?= $o['no']; ?></td>
                 <td><?= $o['movie']; ?></td>
